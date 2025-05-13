@@ -19,9 +19,9 @@ export async function createFeedback(params: CreateFeedbackParams) {
 
     const { object } = await generateObject({
       model: perplexity("sonar", 
-      //   {
-      //   structuredOutputs: false,
-      // }
+        {
+        structuredOutputs: false,
+      }
     ),
       schema: feedbackSchema,
       prompt: `
