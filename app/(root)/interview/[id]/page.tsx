@@ -11,18 +11,22 @@ import {
 import { getCurrentUser } from "@/lib/actions/auth.action";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
 
-const page = async ({ params }: RouteParams) => {
+const InterviewDetails = async ({ params }: RouteParams) => {
   const { id } = await params;
-   const user = await getCurrentUser();
 
-   const interview = await getInterviewById(id);
+  const user = await getCurrentUser();
+
+  const interview = await getInterviewById(id);
   if (!interview) redirect("/");
 
-
+  const feedback = await getFeedbackByInterviewId({
+    interviewId: id,
+    userId: user?.id!,
+  });
 
   return (
     <>
-    <div className="flex flex-row gap-4 justify-between">
+      <div className="flex flex-row gap-4 justify-between">
         <div className="flex flex-row gap-4 items-center max-sm:flex-col">
           <div className="flex flex-row gap-4 items-center">
             <Image
@@ -42,17 +46,17 @@ const page = async ({ params }: RouteParams) => {
           {interview.type}
         </p>
       </div>
+
       <Agent
         userName={user?.name!}
         userId={user?.id}
         interviewId={id}
         type="interview"
         questions={interview.questions}
-        }
+        feedbackId={feedback?.id}
       />
-      </>
-    
-  )
-}
+    </>
+  );
+};
 
-export default page
+export default InterviewDetails;
