@@ -141,7 +141,7 @@ useEffect(() => {
 
   };
 
-  const lastMessage = messages[messages.length - 1]?.content;
+  const LATESTMessage = messages[messages.length - 1]?.content;
   const isCallInativeOrFinished = callStatus === CallStatus.INACTIVE || callStatus === CallStatus.FINISHED;
     return (
     <>
